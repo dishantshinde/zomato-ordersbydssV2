@@ -3,20 +3,18 @@ console.log("DB_HOST:", process.env.DB_HOST);
 console.log("DB_USER:", process.env.DB_USER);
 console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 console.log("DB_NAME:", process.env.DB_NAME);
-var mysql = require("mysql2");
+const mysql = require("mysql2");
 
-var connection = mysql.createConnection({
+// Create a pool of connections
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  multipleStatements: true,
+  waitForConnections: true,
+  connectionLimit: 10, // Adjust as per your application's needs
+  queueLimit: 0,
 });
 
-connection.connect(function (err) {
-  if (err)
-    return console.log("failed to connect to mysql server/ database", err);
-  else return console.log("connection established with Datebase!!!!");
-});
-
-module.exports = connection;
+// Ensure pool is properly exported
+module.exports = pool;
