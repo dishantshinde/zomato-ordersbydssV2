@@ -17,7 +17,9 @@ function MainPage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8080/api/orders/${limit}/${skip}`)
+    fetch(
+      `https://zomato-ordersbydssv2-1.onrender.com/api/orders/${limit}/${skip}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response not ok");
