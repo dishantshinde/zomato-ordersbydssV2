@@ -9,12 +9,23 @@ const afunc = require("./createDatabase");
 afunc();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:5500"];
+
 app.use(
   cors({
-    origin: "http://localhost:3000", // Adjust origin as per your frontend URL
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Allow requests with no origin
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 const connection = require("./connector");
 
 // Welcome page route
