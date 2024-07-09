@@ -10,7 +10,11 @@ afunc();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const allowedOrigins = ["http://localhost:3000", "http://127.0.0.1:5500"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:5500",
+  "https://zomato-ordersbydssv2-2.onrender.com",
+];
 
 app.use(
   cors({
