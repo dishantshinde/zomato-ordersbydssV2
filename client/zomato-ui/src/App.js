@@ -28,6 +28,7 @@ function MainPage() {
       })
       .then((data) => {
         setOrders(data);
+        console.log("data is ", data);
         setLoading(false);
       })
       .catch((error) => {
